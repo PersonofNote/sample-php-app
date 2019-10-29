@@ -1,7 +1,5 @@
 <?php include('server.php') ?>
 <?php include "./templates/header.php"; ?>
-<?php include "../autoload.php";
-  ?>
 <body>
   <div class="header">
   	<h2>Login</h2>
