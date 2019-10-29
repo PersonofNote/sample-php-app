@@ -15,8 +15,6 @@ $DB_USERNAME = env('DB_USERNAME');
 $DB_PASSWORD = env('DB_PASSWORD');
 $DB_NAME = env('DB_NAME');
 
-echo $DB_USERNAME;
-
 $db = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 
 // REGISTER USER

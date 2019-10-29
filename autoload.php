@@ -1,9 +1,6 @@
 <?php
-  if(file_exists('env.php')) {
-      include 'env.php';
-  }else {
-      echo "Env not found";
-  }
+  include 'env.php';
+  
   if(!function_exists('env')) {
       function env($key, $default = null)
       {
