@@ -1,6 +1,6 @@
 <?php
 //Load environment variables
-include "../autoload.php";
+include "./autoload.php";
 //Keep track of current user
 session_start();
 
