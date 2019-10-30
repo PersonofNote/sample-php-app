@@ -11,7 +11,7 @@ ini_set('display_errors', '1');
 require "config.php";
 
 try {
-  $connection = new PDO("mysqli:host=$host", $username, $password, $options);
+  $connection = new mysqli($server, $username, $password, $db);
   $sql = file_get_contents("./database/init.sql");
   $connection->exec($sql);
 
