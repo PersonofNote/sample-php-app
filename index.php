@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
   //Load environment variables
-  include "./autoload.php";
+  include "autoload.php";
 
   //Initialize variables
   $errors = "";

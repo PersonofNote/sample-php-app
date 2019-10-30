@@ -4,7 +4,7 @@
   * Configuration for database connection
   *
   */
-include "../autoload.php";
+include "autoload.php";
 
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"))
 
