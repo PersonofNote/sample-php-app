@@ -9,13 +9,23 @@ $username = "";
 $email    = "";
 //Array to count and display any errors later
 $errors = array(); 
-//database environment variables
+//local database environment variables
 $DB_HOST = env('DB_HOST');
 $DB_USERNAME = env('DB_USERNAME');
 $DB_PASSWORD = env('DB_PASSWORD');
 $DB_NAME = env('DB_NAME');
 
 $db = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
+
+//ClearDB environment variables
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$dbname = substr($url["path"], 1);
+
+$db = new mysqli($server, $username, $password, $dbname);
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) {

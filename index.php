@@ -9,11 +9,20 @@ ini_set('display_errors', '1');
   $errors = "";
   $task_array = [];
 
-  //database environment variables
+  //local database environment variables
   $DB_HOST = env('DB_HOST');
   $DB_USERNAME = env('DB_USERNAME');
   $DB_PASSWORD = env('DB_PASSWORD');
   $DB_NAME = env('DB_NAME');
+
+  //ClearDB environment variables
+  //ClearDB environment variables
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$dbname = substr($url["path"], 1);
 
   //User login and session info
   session_start(); 
@@ -49,7 +58,8 @@ ini_set('display_errors', '1');
    *  TODO: DRY out (currently repeating some code from server.php)
    * 
   */
-  $db = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME) or die("Could not connect to the database");
+ // $db = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME) or die("Could not connect to the database");
+  $db = new mysqli($server, $username, $password, $dbname);
   $listdbtables = array_column(mysqli_fetch_all($db->query('SHOW TABLES')),0); //For debugging
 	if (isset($_POST['submit'])) {
 		if (empty($_POST['task'])) {
