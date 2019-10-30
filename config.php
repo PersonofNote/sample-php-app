@@ -11,7 +11,9 @@
 $env_var = getenv("CLEARDB_DATABASE_URL");
 $url = parse_url($env_var);
 
-$server = $url["host"];
+echo $url;
+
+$host = $url["host"];
 $username = $url["user"];
 $password = $url["pass"];
 $db = substr($url["path"], 1);
