@@ -6,7 +6,7 @@
   */
 
 //Local development
-include "autoload.php";
+//include "autoload.php";
 
 $env_var = getenv("CLEARDB_DATABASE_URL");
 $url = parse_url($env_var);
