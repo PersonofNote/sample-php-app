@@ -1,6 +1,6 @@
 # sample-php-app
 
-Flexible day-scheduling app; enter tasks that you would like to complete in a given day, and allow the app to choose for you.
+Simple task app with user registration
 
 
 ### Prerequisites
