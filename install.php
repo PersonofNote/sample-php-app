@@ -11,7 +11,7 @@ ini_set('display_errors', '1');
 require "config.php";
 
 try {
-  $connection = new mysqli($server, $username, $password, $db);
+  $connection = new mysqli($host, $username, $password, $db);
   $sql = file_get_contents("./database/init.sql");
   $connection->exec($sql);
 
