@@ -103,7 +103,7 @@ if (isset($_GET['del_task'])) {
       <?php 
     // select all tasks if page is visited or refreshed
    // $tasks = mysqli_query($db, "SELECT * FROM tasks")
-    $tasks = mysqli_query($db, "SELECT * FROM users JOIN tasks ON users.username = tasks.username WHERE users.username = 'jessie'")
+    $tasks = mysqli_query($db, "SELECT * FROM users JOIN tasks ON users.username = tasks.username WHERE users.username = '$thisuser'")
       or die("Error: ".mysqli_error($db)); ?>
 
       <div class="no-results">
