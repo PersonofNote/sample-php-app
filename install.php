@@ -8,14 +8,14 @@ ini_set('display_errors', '1');
   *
   */
 
-require "config.php";
+  require "config.php";
 
-try {
-  $connection = new PDO("mysqli:host=$host", $username, $password, $options);
-  $sql = file_get_contents("./database/init.sql");
-  $connection->exec($sql);
-
-  echo "Database and tables created successfully.";
-} catch(PDOException $error) {
-  echo $sql . "<br>" . $error->getMessage();
-}
+  try {
+    $connection = new PDO("mysql:host=$host", $username, $password, $options);
+    $sql = file_get_contents("database/init.sql");
+    $connection->exec($sql);
+  
+    echo "Database and table users created successfully.";
+  } catch(PDOException $error) {
+    echo $sql . "<br>" . $error->getMessage();
+  }

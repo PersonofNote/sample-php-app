@@ -1,7 +1,6 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-phpinfo();
 
 //Initialize variables
 $errors = "";
@@ -9,11 +8,11 @@ $task_array = [];
 
 //local database environment variables
 //Load environment variables
-//include "autoload.php";
-//$DB_HOST = env('DB_HOST');
-//$DB_USERNAME = env('DB_USERNAME');
-//$DB_PASSWORD = env('DB_PASSWORD');
-//$DB_NAME = env('DB_NAME');
+include "autoload.php";
+$DB_HOST = env('DB_HOST');
+$DB_USERNAME = env('DB_USERNAME');
+$DB_PASSWORD = env('DB_PASSWORD');
+$DB_NAME = env('DB_NAME');
 
 //ClearDB environment variables
 //ClearDB environment variables
@@ -58,8 +57,8 @@ $dbname = substr($url["path"], 1);
    *  TODO: DRY out (currently repeating some code from server.php)
    * 
   */
- // $db = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME) or die("Could not connect to the database");
-  $db = new mysqli($server, $username, $password, $dbname);
+   $db = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME) or die("Could not connect to the database");
+  //$db = mysqli_connect($server, $username, $password, $dbname);
   $listdbtables = array_column(mysqli_fetch_all($db->query('SHOW TABLES')),0); //For debugging
 	if (isset($_POST['submit'])) {
 		if (empty($_POST['task'])) {

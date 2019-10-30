@@ -14,7 +14,7 @@ $errors = array();
 //$DB_PASSWORD = env('DB_PASSWORD');
 //$DB_NAME = env('DB_NAME');
 
-$db = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
+//$db = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 
 //ClearDB environment variables
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
