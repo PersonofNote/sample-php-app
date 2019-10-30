@@ -7,10 +7,12 @@ Flexible day-scheduling app; enter tasks that you would like to complete in a gi
 
 MySQL, PHP
 
-### Installing
+### Installing Locally
 
-Clone repository; set up database with relevant credentials in a .env file
-Serve with your favorite web sever
+* Clone repository and checkout dev_branch. 
+* Set up database with relevant credentials in a file called env.php
+* Serve with your favorite web sever (php -S localhost:8000 will work)
+* Navigate to /install.php; if you see "Tables created successfully," you're good to go!
 
 
 ## Built With
