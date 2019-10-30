@@ -26,6 +26,9 @@ form, .content {
   background: white;
   border-radius: 0px 0px 10px 10px;
 }
+form {
+  margin: 1rem auto;
+}
 .input-group {
   margin: 10px 0px 10px 0px;
 }
@@ -37,9 +40,9 @@ form, .content {
 .input-group input {
   height: 30px;
   width: 93%;
+  max-width: 95%;
   padding: 5px 10px;
   font-size: 16px;
-  border-radius: 5px;
   border: 1px solid gray;
 }
 .btn {
@@ -48,7 +51,6 @@ form, .content {
   color: white;
   background: #5F9EA0;
   border: none;
-  border-radius: 5px;
 }
 .error {
   width: 92%; 
@@ -65,4 +67,19 @@ form, .content {
   background: #dff0d8; 
   border: 1px solid #3c763d;
   margin-bottom: 20px;
+}
+
+.tasks-table tr td{
+  padding: 0.4rem;
+}
+
+button {
+  padding: 0.2rem;
+  background-color: #5F9EA0;
+  color: white;
+  font-weight: bold;
+}
+
+.logout {
+  padding: 0.5rem;
 }
