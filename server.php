@@ -1,6 +1,4 @@
 <?php
-//Load environment variables
-include "autoload.php";
 //Keep track of current user
 session_start();
 
@@ -10,10 +8,11 @@ $email    = "";
 //Array to count and display any errors later
 $errors = array(); 
 //local database environment variables
-$DB_HOST = env('DB_HOST');
-$DB_USERNAME = env('DB_USERNAME');
-$DB_PASSWORD = env('DB_PASSWORD');
-$DB_NAME = env('DB_NAME');
+//include "autoload.php";
+//$DB_HOST = env('DB_HOST');
+//$DB_USERNAME = env('DB_USERNAME');
+//$DB_PASSWORD = env('DB_PASSWORD');
+//$DB_NAME = env('DB_NAME');
 
 $db = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 

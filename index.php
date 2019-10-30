@@ -1,22 +1,21 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+//error_reporting(E_ALL);
+//ini_set('display_errors', '1');
 
-  //Load environment variables
-  include "autoload.php";
+//Initialize variables
+$errors = "";
+$task_array = [];
 
-  //Initialize variables
-  $errors = "";
-  $task_array = [];
+//local database environment variables
+//Load environment variables
+//include "autoload.php";
+//$DB_HOST = env('DB_HOST');
+//$DB_USERNAME = env('DB_USERNAME');
+//$DB_PASSWORD = env('DB_PASSWORD');
+//$DB_NAME = env('DB_NAME');
 
-  //local database environment variables
-  $DB_HOST = env('DB_HOST');
-  $DB_USERNAME = env('DB_USERNAME');
-  $DB_PASSWORD = env('DB_PASSWORD');
-  $DB_NAME = env('DB_NAME');
-
-  //ClearDB environment variables
-  //ClearDB environment variables
+//ClearDB environment variables
+//ClearDB environment variables
 $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
 $server = $url["host"];
