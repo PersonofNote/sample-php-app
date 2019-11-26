@@ -22,19 +22,7 @@ $task_array = [];
       header("location: login.php");
   }
 ?>
-<?php include "templates/header.php"; ?>
-<!-- notification message -->
-<?php if (isset($_SESSION['success'])) { ?>
-<div class="error success">
-  <h3>
-    <?php
-        echo $_SESSION['success'];
-        unset($_SESSION['success']);
-      ?>
-  </h3>
-</div>
-
-<?php }
+<?php include "templates/header.php";
 
 //logged in user information
 if (isset($_SESSION['username'])) {
