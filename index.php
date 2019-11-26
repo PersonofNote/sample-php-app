@@ -33,9 +33,9 @@ $task_array = [];
           ?>
   </h3>
 </div>
-<?php endif ?>
-<!-- logged in user information -->
-<?php  if (isset($_SESSION['username'])) :
+<?php endif;
+//logged in user information
+ if (isset($_SESSION['username'])) :
       $thisuser = $_SESSION['username']; //TODO change to use ID instead of username to join tables
       include "./include-files/task-logic.php";
      ?>
@@ -48,7 +48,15 @@ $task_array = [];
 <?php if (isset($errors)) { ?>
 <p><?php echo $errors; ?></p>
 <?php } ?>
-<?php include "./include-files/task-form.php" ?>
+
+<form method="post" action="index.php" class="input_form">
+    <label for="task"> What do you want to do? </label>
+    <input type="text" name="task" class="task_input">
+    <label for="task_duration"> For how many minutes? </label>
+    <input type="number" name="task_duration" class="task_input">
+    <button type="submit" name="submit" id="add_btn" class="add_btn">Add Task</button>
+</form>
+
   <div class="tasks">
     
       <?php
