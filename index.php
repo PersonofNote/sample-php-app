@@ -28,9 +28,9 @@ $task_array = [];
 <div class="error success">
   <h3>
     <?php
-      echo $_SESSION['success'];
-      unset($_SESSION['success']);
-    ?>
+        echo $_SESSION['success'];
+        unset($_SESSION['success']);
+      ?>
   </h3>
 </div>
 
@@ -78,18 +78,18 @@ if (isset($_SESSION['username'])) {
     </div>
     <?php $i++;
         } ?>
-    </div>
-    <div class="no-results">
-      <?php
+  </div>
+  <div class="no-results">
+    <?php
     if (mysqli_num_rows($tasks) < 1) {
         echo "No tasks found";
     }
     ?>
-    </div>
-    <div class="day-sections">
-
-    </div>
   </div>
+  <div class="day-sections">
+
+  </div>
+</div>
 
 
-  <?php include "templates/footer.php"; ?>
+<?php include "templates/footer.php";

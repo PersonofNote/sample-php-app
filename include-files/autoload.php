@@ -5,7 +5,7 @@
       function env($key, $default = null)
       {
           $value = getenv($key);
-          if ($value === false) {
+          if (!$value) {
               return $default;
           }
           return $value;

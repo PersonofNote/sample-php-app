@@ -57,7 +57,6 @@ if (isset($_POST['reg_user'])) {
   			  VALUES('$username', '$email', '$password')";
         mysqli_query($db, $query);
         $_SESSION['username'] = $username;
-        $_SESSION['success'] = "You are now logged in"; //TODO: add timeout to clear message
         header('location: index.php');
     }
 }
