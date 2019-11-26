@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS cleardb-graceful-17842;
+CREATE DATABASE IF NOT EXISTS task-db;
 
-  use cleardb-graceful-17842;
+  use task-db;
 
   CREATE TABLE users (
     userid INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

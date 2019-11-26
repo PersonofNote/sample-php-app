@@ -9,30 +9,21 @@ $task_array = [];
 //local database environment variables
 //Load environment variables
 include "autoload.php";
-$DB_HOST = env('DB_HOST');
-$DB_USERNAME = env('DB_USERNAME');
-$DB_PASSWORD = env('DB_PASSWORD');
-$DB_NAME = env('DB_NAME');
+include "db-variables.php";
 
-//ClearDB environment variables
-//ClearDB environment variables
-$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-
-$server = $url["host"];
-$username = $url["user"];
-$password = $url["pass"];
-$dbname = substr($url["path"], 1);
+echo $dbname;
+echo $username;
 
   //User login and session info
-  session_start(); 
+  session_start();
   if (!isset($_SESSION['username'])) {
-  	$_SESSION['msg'] = "You must log in first";
-  	header('location: login.php');
+      $_SESSION['msg'] = "You must log in first";
+      header('location: login.php');
   }
   if (isset($_GET['logout'])) {
-  	session_destroy();
-  	unset($_SESSION['username']);
-  	header("location: login.php");
+      session_destroy();
+      unset($_SESSION['username']);
+      header("location: login.php");
   }
 ?>
 <?php include "templates/header.php"; ?>
@@ -40,9 +31,9 @@ $dbname = substr($url["path"], 1);
 <?php if (isset($_SESSION['success'])) : ?>
 <div class="error success">
   <h3>
-    <?php 
-          	echo $_SESSION['success']; 
-          	unset($_SESSION['success']);
+    <?php
+              echo $_SESSION['success'];
+              unset($_SESSION['success']);
           ?>
   </h3>
 </div>
@@ -52,37 +43,36 @@ $dbname = substr($url["path"], 1);
 <?php  if (isset($_SESSION['username'])) :
       $thisuser = $_SESSION['username']; //TODO change to use ID instead of username to join tables
   
-  /** Task submission info 
-   * 
+  /** Task submission info
+   *
    *  TODO: DRY out (currently repeating some code from server.php)
-   * 
+   *
   */
-   $db = mysqli_connect($DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME) or die("Could not connect to the database");
-  //$db = mysqli_connect($server, $username, $password, $dbname);
-  $listdbtables = array_column(mysqli_fetch_all($db->query('SHOW TABLES')),0); //For debugging
-	if (isset($_POST['submit'])) {
-		if (empty($_POST['task'])) {
-      $errors = "You must fill in the task";
-		}else{
-      $task = $_POST['task'];
-      $task_duration = $_POST['task_duration'];
-      $query = "INSERT INTO tasks (task, duration, username) 
+  $db = new mysqli($server, $username, $password, $dbname) or die("Could not connect to the database");
+  $listdbtables = array_column(mysqli_fetch_all($db->query('SHOW TABLES')), 0) or die("Error: ".mysqli_error($db)); //For debugging
+    if (isset($_POST['submit'])) {
+        if (empty($_POST['task'])) {
+            $errors = "You must fill in the task";
+        } else {
+            $task = $_POST['task'];
+            $task_duration = $_POST['task_duration'];
+            $query = "INSERT INTO tasks (task, duration, username) 
   			  VALUES('$task', '$task_duration', '$thisuser')";
-      $result = mysqli_query($db, $query);
-      if ($result) {
-        header('location: index.php');
-    } else {
-        echo ("Could not insert data. ");
+            $result = mysqli_query($db, $query);
+            if ($result) {
+                header('location: index.php');
+            } else {
+                echo("Could not insert data. ");
+            }
+        }
     }
-		}
-  }
 
   //delete
 if (isset($_GET['del_task'])) {
-	$id = $_GET['del_task'];
+    $id = $_GET['del_task'];
 
-	mysqli_query($db, "DELETE FROM tasks WHERE taskid=".$id);
-	header('location: index.php');
+    mysqli_query($db, "DELETE FROM tasks WHERE taskid=".$id);
+    header('location: index.php');
 }
      ?>
 <?php endif ?>
@@ -109,30 +99,30 @@ if (isset($_GET['del_task'])) {
     </thead>
 
     <tbody>
-      <?php 
+      <?php
     // select all tasks if page is visited or refreshed
    // $tasks = mysqli_query($db, "SELECT * FROM tasks")
     $tasks = mysqli_query($db, "SELECT * FROM users JOIN tasks ON users.username = tasks.username WHERE users.username = '$thisuser'")
       or die("Error: ".mysqli_error($db)); ?>
       <?php //Loop over and display tasks
-		$i = 1; while ($row = mysqli_fetch_array($tasks)) {
-      array_push($task_array, $row);
-       ?>
+        $i = 1; while ($row = mysqli_fetch_array($tasks)) {
+            array_push($task_array, $row); ?>
       <tr>
         <td class="task"> <?php echo $row['task'] . ": "; ?> </td>
-        <td class="duration"> <?php echo ($row['duration']) . " minutes"; ?> </td>
+        <td class="duration"> <?php echo($row['duration']) . " minutes"; ?> </td>
         <td class="delete">
           <a href="index.php?del_task=<?php echo $row['taskid'] ?>">x</a>
         </td>
       </tr>
-      <?php $i++; } ?>
+      <?php $i++;
+        } ?>
     </tbody>
   </table>
   <div class="no-results">
-        <?php 
+        <?php
     //echo mysqli_num_rows($tasks);
-    if(mysqli_num_rows($tasks) < 1) {
-      echo "No tasks found";
+    if (mysqli_num_rows($tasks) < 1) {
+        echo "No tasks found";
     }
     ?>
      </div>
