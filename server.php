@@ -10,7 +10,6 @@ $username = "";
 $email    = "";
 //Array to count and display any errors later
 $errors = array();
-
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
     // Get form values
