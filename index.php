@@ -1,18 +1,13 @@
 <?php
+include "./include-files/autoload.php";
+include "./include-files/db-variables.php";
+
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 //Initialize variables
 $errors = "";
 $task_array = [];
-
-//local database environment variables
-//Load environment variables
-include "autoload.php";
-include "db-variables.php";
-
-echo $dbname;
-echo $username;
 
   //User login and session info
   session_start();
@@ -42,37 +37,33 @@ echo $username;
 <!-- logged in user information -->
 <?php  if (isset($_SESSION['username'])) :
       $thisuser = $_SESSION['username']; //TODO change to use ID instead of username to join tables
-  
-  /** Task submission info
-   *
-   *  TODO: DRY out (currently repeating some code from server.php)
-   *
-  */
-  $db = new mysqli($server, $username, $password, $dbname) or die("Could not connect to the database");
-  $listdbtables = array_column(mysqli_fetch_all($db->query('SHOW TABLES')), 0) or die("Error: ".mysqli_error($db)); //For debugging
-    if (isset($_POST['submit'])) {
-        if (empty($_POST['task'])) {
-            $errors = "You must fill in the task";
+ 
+      
+  // Task submission info
+$listdbtables = array_column(mysqli_fetch_all($db->query('SHOW TABLES')), 0) or die("Error: ".mysqli_error($db)); //For debugging
+if (isset($_POST['submit'])) {
+    if (empty($_POST['task'])) {
+        $errors = "You must fill in the task";
+    //TODO: Add logic to make error time out.
+    } else {
+        $task = $_POST['task'];
+        $task_duration = $_POST['task_duration'];
+        $query = "INSERT INTO tasks (task, duration, username) 
+VALUES('$task', '$task_duration', '$thisuser')";
+        $result = mysqli_query($db, $query);
+        if ($result) {
+            //pass
         } else {
-            $task = $_POST['task'];
-            $task_duration = $_POST['task_duration'];
-            $query = "INSERT INTO tasks (task, duration, username) 
-  			  VALUES('$task', '$task_duration', '$thisuser')";
-            $result = mysqli_query($db, $query);
-            if ($result) {
-                header('location: index.php');
-            } else {
-                echo("Could not insert data. ");
-            }
+            echo("Could not insert data. ");
         }
     }
+}
 
   //delete
 if (isset($_GET['del_task'])) {
     $id = $_GET['del_task'];
 
     mysqli_query($db, "DELETE FROM tasks WHERE taskid=".$id);
-    header('location: index.php');
 }
      ?>
 <?php endif ?>
@@ -84,21 +75,9 @@ if (isset($_GET['del_task'])) {
 <?php if (isset($errors)) { ?>
 <p><?php echo $errors; ?></p>
 <?php } ?>
-  <form method="post" action="index.php" class="input_form">
-    <label for="task"> What do you want to do? </label>
-    <input type="text" name="task" class="task_input">
-    <label for="task_duration"> For how many minutes? </label>
-    <input type="number" name="task_duration" class="task_input">
-    <button type="submit" name="submit" id="add_btn" class="add_btn">Add Task</button>
-  </form>
-  <table class="tasks-table">
-    <thead>
-      <tr>
-        <th> All Tasks</th>
-      </tr>
-    </thead>
-
-    <tbody>
+<?php include "./include-files/task-form.php" ?>
+  <div class="tasks">
+    
       <?php
     // select all tasks if page is visited or refreshed
    // $tasks = mysqli_query($db, "SELECT * FROM tasks")
@@ -107,20 +86,18 @@ if (isset($_GET['del_task'])) {
       <?php //Loop over and display tasks
         $i = 1; while ($row = mysqli_fetch_array($tasks)) {
             array_push($task_array, $row); ?>
-      <tr>
-        <td class="task"> <?php echo $row['task'] . ": "; ?> </td>
-        <td class="duration"> <?php echo($row['duration']) . " minutes"; ?> </td>
-        <td class="delete">
+      <div>
+        <span class="task"> <?php echo $row['task'] . ": "; ?> </span>
+        <span class="duration"> <?php echo($row['duration']) . " minutes"; ?> </span>
+        <span class="delete">
           <a href="index.php?del_task=<?php echo $row['taskid'] ?>">x</a>
-        </td>
-      </tr>
+        </span>
+      </div>
       <?php $i++;
         } ?>
-    </tbody>
-  </table>
+  </>
   <div class="no-results">
         <?php
-    //echo mysqli_num_rows($tasks);
     if (mysqli_num_rows($tasks) < 1) {
         echo "No tasks found";
     }

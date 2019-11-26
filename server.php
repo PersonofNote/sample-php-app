@@ -1,4 +1,7 @@
 <?php
+include "./include-files/autoload.php";
+include "./include-files/db-variables.php";
+
 //Keep track of current user
 session_start();
 
@@ -7,11 +10,7 @@ $username = "";
 $email    = "";
 //Array to count and display any errors later
 $errors = array();
-//local database environment variables
-include "autoload.php";
-include "db-variables.php";
 
-$db = new mysqli($server, $username, $password, $dbname);
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
