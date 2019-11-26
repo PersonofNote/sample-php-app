@@ -43,9 +43,15 @@ if (isset($_SESSION['username'])) {
 }
 ?>
 <p class="logout"> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
-<div class="header">
-  <h2><strong><?php echo $thisuser . "'s Tasks"; ?></strong></h2>
-</div>
+<?php
+//In case user sees screen while not set
+  if ($thisuser) { ?>
+  <div class="header">
+    <h2><strong>
+    <?php echo $thisuser . "'s Tasks"; ?>
+    </strong></h2>
+  </div>
+  <?php } ?>
 <div class="content">
   <?php if (isset($errors)) { ?>
   <p><?php echo $errors; ?></p>
