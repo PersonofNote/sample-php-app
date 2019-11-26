@@ -46,12 +46,12 @@ if (isset($_SESSION['username'])) {
 <?php
 //In case user sees screen while not set
   if ($thisuser) { ?>
-  <div class="header">
-    <h2><strong>
-    <?php echo $thisuser . "'s Tasks"; ?>
+<div class="header">
+  <h2><strong>
+      <?php echo $thisuser . "'s Tasks"; ?>
     </strong></h2>
-  </div>
-  <?php } ?>
+</div>
+<?php } ?>
 <div class="content">
   <?php if (isset($errors)) { ?>
   <p><?php echo $errors; ?></p>
